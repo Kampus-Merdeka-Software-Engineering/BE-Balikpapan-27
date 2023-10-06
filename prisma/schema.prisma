@@ -16,45 +16,50 @@ model Mahasiswa {
   nim       String
   jurusan   String
   createAt  DateTime  @default(now())
-}
-
-model Campus {
-  id        Int     @id @default(autoincrement())
-  nama      String
-  alamat    String
-  telp      String
-  createAt  DateTime  @default(now())
   updateAt  DateTime  @updatedAt
 }
 
 model Appointment {
-  id        Int     @id @default(autoincrement())
-  
+  id        Int       @id @default(autoincrement())
+  nama      String    
+  telp      String    
+  tanggal   DateTime
+  dokter    String
+  pesan     String    @db.Text
   createAt  DateTime  @default(now())
-  updateAt  DateTime  @updatedAt
 }
 
 model Blog {
-  id        Int     @id @default(autoincrement())
-
-  createAt  DateTime  @default(now())
-  updateAt  DateTime  @updatedAt
+  id              Int       @id @default(autoincrement())
+  foto            String
+  judul           String
+  penulis         String
+  tanggal_terbit  DateTime
+  isi_blog        String    @db.Text
+  createAt        DateTime  @default(now())
+  updateAt        DateTime  @updatedAt
 }
 
 model Doctor {
-  id        Int     @id @default(autoincrement())
-  nama      String
-  spesialis String
+  id            Int     @id @default(autoincrement())
+  nama          String
+  spesialis     String
   jenis_kelamin String
-  foto      String
-  createAt  DateTime  @default(now())
-  updateAt  DateTime  @updatedAt
+  foto          String
+  createAt      DateTime  @default(now())
+  updateAt      DateTime  @updatedAt
 }
 
 model Team {
-  id        Int     @id @default(autoincrement())
-
-  createAt  DateTime  @default(now())
-  updateAt  DateTime  @updatedAt
+  id                Int     @id @default(autoincrement())
+  nama              String
+  divisi            String
+  linkedin          String
+  instagram         String
+  whatsapp          String
+  foto              String
+  logo_universitas  String
+  createAt          DateTime  @default(now())
+  updateAt          DateTime  @updatedAt
 }
 
