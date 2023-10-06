@@ -1,50 +1,102 @@
-const { pool } = require('../config/database');
+const { prisma } = require('../config/prisma')
 
 const getAllTeam = async () => {
-    const connection = await pool.getConnection();
     try {
-        const [team] = await connection.query('SELECT * FROM team');
+        const team = await prisma.team.findMany({
+            select: {
+                id: true,
+                nama: true,
+                divisi: true,
+                linkedin: true,
+                instagram: true,
+                whatsapp: true,
+                foto: true,
+                logo_universitas: true 
+            }
+        })
         return team
 
     } catch (error) {
         console.error(error)
         return error
-
-    } finally {
-        connection.release()
-    }   
+    }  
 }
 
 const getTeamById = async (id) => {
-    const connection = await pool.getConnection();
     try {
-        const [team] = await connection.query('SELECT * FROM team WHERE id = ?', [id]);
+        const team = await prisma.team.findMany({
+            where: {
+                id: Number(id)
+            }
+        })
         return team
 
     } catch (error) {
         console.error(error)
         return error
-
-    } finally {
-        connection.release()
-    }   
+    } 
 }
 
-const createTeam = async (team) => {
-    const connection = await pool.getConnection();
+const createTeam = async (body) => {
     try {
-        //table team belum fix
-        const createdTeam = await connection.query('INSERT INTO team (nama, nim, username, email, password, dob) VALUES (?, ?, ?, ?, ?, ?)', [mahasiswa.nama, mahasiswa.nim, mahasiswa.username, mahasiswa.email, mahasiswa.password, mahasiswa.dob]);
-
+        const {nama, divisi, linkedin, instagram, whatsapp, foto, logo_universitas } = body;
+        const createdTeam = await prisma.team.create({
+            data: {
+                nama,
+                divisi,
+                linkedin,
+                instagram,
+                whatsapp,
+                foto,
+                logo_universitas 
+            }
+        })
         return createdTeam
-        //atau return createdMahasiswa.id biar gak semua info dari mahasiswa direturn (utamanya password)
+
     } catch (error) {
         console.error(error)
         return error
-
-    } finally {
-        connection.release()
     }
 }
 
-module.exports = { getAllTeam, createTeam, getTeamById }
+const updateTeam = async (id, body) => {
+    try {
+        const {nama, divisi, linkedin, instagram, whatsapp, foto, logo_universitas } = body;
+        const updatedTeam = await prisma.team.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                nama: nama,
+                divisi: divisi,
+                linkedin: linkedin,
+                instagram: instagram,
+                whatsapp: whatsapp,
+                foto: foto,
+                logo_universitas: logo_universitas
+            }
+        })
+        return updatedTeam
+
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+const deleteTeam = async (id) => {
+    try {
+        const deletedTeam = await prisma.team.delete({
+            where: {
+                id: Number(id)
+            }
+        })
+        return deletedTeam
+
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+module.exports = { getAllTeam, createTeam, getTeamById, updateTeam, deleteTeam }

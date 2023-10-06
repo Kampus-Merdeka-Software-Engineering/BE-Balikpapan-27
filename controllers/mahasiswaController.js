@@ -76,6 +76,4 @@ const deleteMahasiswa = async (req, res) => {
     })
 }
     
-
-
 module.exports = { getAllMahasiswa, getMahasiswaById, createMahasiswa, updateMahasiswa, deleteMahasiswa }

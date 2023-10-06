@@ -5,15 +5,12 @@ require('dotenv').config();
 const cors = require('cors'); //biar bisa sharing data antar endpoint, atau singkatnya biar datanya bisa nyambung ke FE
 const express = require('express');
 
-//import config database
-//const { pool } = require('./config/database');
-
 //import Routes
 const { mahasiswaRoutes } = require('./routes/mahasiswaRoutes');
 const { appointmentRoutes } = require('./routes/appointmentRoutes');
 const { blogRoutes } = require('./routes/blogRoutes');
 const { doctorRoutes } = require('./routes/doctorRoutes');
-// const { teamRoutes } = require('./routes/teamRoutes');
+const { teamRoutes } = require('./routes/teamRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,7 +23,7 @@ app.use('/mahasiswa', mahasiswaRoutes)
 app.use('/appointment', appointmentRoutes)
 app.use('/blog', blogRoutes)
 app.use('/doctor', doctorRoutes)
-// app.use('/team', teamRoutes)
+app.use('/team', teamRoutes)
 
 //listen port
 app.listen(PORT, () => {

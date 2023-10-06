@@ -3,8 +3,10 @@ const teamController = require('../controllers/teamController');
 
 const teamRoutes = express.Router();
 
-teamRoutes.get('/team', teamController.getAllTeam)
-teamRoutes.get('/team/:id', teamController.getTeamById)
-teamRoutes.post('/team', teamController.createTeam)
+teamRoutes.get('/', teamController.getAllTeam)
+teamRoutes.get('/:id', teamController.getTeamById)
+teamRoutes.post('/create', teamController.createTeam)
+teamRoutes.put('/update/:id', teamController.updateTeam)
+teamRoutes.delete('/delete/:id', teamController.deleteTeam)
 
 module.exports = { teamRoutes }
