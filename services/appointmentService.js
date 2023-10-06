@@ -1,50 +1,96 @@
-const { pool } = require('../config/database');
+const { prisma } = require('../config/prisma')
 
 const getAllAppointment = async () => {
-    const connection = await pool.getConnection();
     try {
-        const [appointment] = await connection.query('SELECT * FROM appointment');
+        const appointment = await prisma.appointment.findMany({
+            select: {
+                id: true,
+                nama: true,   
+                telp: true,   
+                tanggal: true,
+                dokter: true,
+                pesan: true
+            }
+        })
         return appointment
 
     } catch (error) {
         console.error(error)
-        return error
-
-    } finally {
-        connection.release()
-    }   
-}
-
-const getAppointmentById = async (id) => {
-    const connection = await pool.getConnection();
-    try {
-        const [appointment] = await connection.query('SELECT * FROM appointment WHERE id = ?', [id]);
-        return appointment
-
-    } catch (error) {
-        console.error(error)
-        return error
-
-    } finally {
-        connection.release()
-    }   
-}
-
-const createAppointment = async (appointment) => {
-    const connection = await pool.getConnection();
-    try {
-        //table appointment belum fix
-        const createdAppointment = await connection.query('INSERT INTO appointment (nama, nim, username, email, password, dob) VALUES (?, ?, ?, ?, ?, ?)', [mahasiswa.nama, mahasiswa.nim, mahasiswa.username, mahasiswa.email, mahasiswa.password, mahasiswa.dob]);
-
-        return createdAppointment
-        //atau return createdMahasiswa.id biar gak semua info dari mahasiswa direturn (utamanya password)
-    } catch (error) {
-        console.error(error)
-        return error
-
-    } finally {
-        connection.release()
+        return error 
     }
 }
 
-module.exports = { getAllAppointment, createAppointment, getAppointmentById }
+const getAppointmentById = async (id) => {
+    try {
+        const appointment = await prisma.appointment.findMany({
+            where: {
+                id: Number(id)
+            }
+        })
+        return appointment
+
+    } catch (error) {
+        console.error(error)
+        return error  
+    }
+}
+
+const createAppointment = async (body) => {
+    try {
+        const { nama, telp, tanggal, dokter, pesan } = body
+        const createdAppointment = await prisma.appointment.create({
+            data: {
+                nama,
+                telp,
+                tanggal,
+                dokter,
+                pesan
+            }
+        })
+        return createdAppointment
+
+    } catch (error) {
+        console.error(error)
+        return error
+    }
+}
+
+const updateAppointment = async (id, body) => {
+    try {
+        const { nama, telp, tanggal, dokter, pesan } = body
+        const updatedAppointment = await prisma.appointment.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                nama: nama,
+                telp: telp,
+                tanggal: tanggal,
+                dokter: dokter,
+                pesan: pesan
+            }
+        })
+        return updatedAppointment
+
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+const deleteAppointment = async (id) => {
+    try {
+        const deletedAppointment = await prisma.appointment.delete({
+            where: {
+                id: Number(id)
+            }
+        })
+        return deletedAppointment
+
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+module.exports = { getAllAppointment, createAppointment, getAppointmentById, updateAppointment, deleteAppointment }

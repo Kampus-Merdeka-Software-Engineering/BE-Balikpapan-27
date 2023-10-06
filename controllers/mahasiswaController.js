@@ -1,6 +1,20 @@
 const mahasiswaService = require('../services/mahasiswaService');
 const { prisma } = require('../config/prisma')
 
+const existingData = async (id) => {
+    const exist = await prisma.mahasiswa.findMany({
+        where: {
+          id: parseInt(id),
+        },
+    });
+    
+    if (exist.length === 0) {
+        return false
+    } else {
+        return true
+    }
+} 
+
 const getAllMahasiswa = async (req,res) => {
     const mahasiswa = await mahasiswaService.getAllMahasiswa()
     res.status(200).json({
@@ -10,10 +24,11 @@ const getAllMahasiswa = async (req,res) => {
 }
 
 const getMahasiswaById = async (req, res) => {
-    const mahasiswa = await mahasiswaService.getMahasiswaById(req.params.id)
+    const { id } = req.params
+    const mahasiswa = await mahasiswaService.getMahasiswaById(id)
     if (!mahasiswa || mahasiswa.length === 0) {
         res.status(404).json({
-            massage: `Data dengan id = ${req.params.id} tidak ditemukan`
+            massage: `Data dengan id = ${id} tidak ditemukan`
         })
     } else {
         res.status(200).json({
@@ -32,37 +47,31 @@ const createMahasiswa = async (req,res) => {
 }
 
 const updateMahasiswa = async (req,res) => {
-    const existingData = await prisma.mahasiswa.findUnique({
-        where: {
-          id: parseInt(req.params.id),
-        },
-    });
+    const { id } = req.params
 
-    if (!existingData) {
-        return res.status(404).json({ massage: `Data dengan id = ${req.params.id} tidak ditemukan` });
+    const exist = await existingData(id)
+    if (!exist) {
+        return res.status(404).json({ massage: `Data dengan id = ${id} tidak ditemukan` });
     }
 
-    const updatedMahasiswa = await mahasiswaService.updateMahasiswa(req.params.id, req.body)
+    const updatedMahasiswa = await mahasiswaService.updateMahasiswa(id, req.body)
     res.status(200).json({
-            massage: "Sukses update data",
+            massage: `Sukses update data pada id = ${id}`,
             data: updatedMahasiswa
     })
 }
         
 const deleteMahasiswa = async (req, res) => {
-    const existingData = await prisma.mahasiswa.findUnique({
-        where: {
-          id: parseInt(req.params.id),
-        },
-    });
-
-    if (!existingData) {
-        return res.status(404).json({ massage: `Data dengan id = ${req.params.id} tidak ditemukan` });
+    const { id } = req.params
+    
+    const exist = await existingData(id)
+    if (!exist) {
+        return res.status(404).json({ massage: `Data dengan id = ${id} tidak ditemukan` });
     }
 
-    const deletedMahasiswa = await mahasiswaService.deleteMahasiswa(req.params.id)
+    const deletedMahasiswa = await mahasiswaService.deleteMahasiswa(id)
     res.status(200).json({
-        massage: `Sukses menghapus data dengan id = ${req.params.id}`,
+        massage: `Sukses menghapus data dengan id = ${id}`,
         data: deletedMahasiswa
     })
 }

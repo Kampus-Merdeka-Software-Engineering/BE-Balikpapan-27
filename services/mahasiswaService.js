@@ -1,11 +1,7 @@
-const { pool } = require ('../config/database')
 const { prisma } = require('../config/prisma')
 
 const getAllMahasiswa = async () => {
-    //const connection = await pool.getConnection();
     try {
-        // const [mahasiswa] = await connection.query('SELECT * FROM mahasiswa');
-        // return mahasiswa
         const mahasiswa = await prisma.mahasiswa.findMany({
             select: {
                 id: true,
@@ -26,9 +22,8 @@ const getMahasiswaById = async (id) => {
     try {
         const mahasiswa = await prisma.mahasiswa.findMany({
             where: {
-                id:Number(id)
+                id: Number(id)
             }
-            
         })
         return mahasiswa
 
@@ -52,7 +47,8 @@ const createMahasiswa = async (body) => {
 
     } catch (error) {
         console.error(error)
-        return error}
+        return error
+    }
 }
 
 const updateMahasiswa = async (id, body) => {

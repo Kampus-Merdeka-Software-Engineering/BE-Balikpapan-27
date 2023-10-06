@@ -1,6 +1,5 @@
 const express = require('express');
 const mahasiswaController = require('../controllers/mahasiswaController');
-const { prisma } = require('../config/prisma');
 
 const mahasiswaRoutes = express.Router();
 
