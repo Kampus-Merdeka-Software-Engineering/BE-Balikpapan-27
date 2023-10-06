@@ -1,4 +1,4 @@
-const mahasiswaService = require('../services/mahasiswaService');
+const mahasiswaService = require('../services/mahasiswaService')
 const { prisma } = require('../config/prisma')
 
 const existingData = async (id) => {
@@ -63,7 +63,7 @@ const updateMahasiswa = async (req,res) => {
         
 const deleteMahasiswa = async (req, res) => {
     const { id } = req.params
-    
+
     const exist = await existingData(id)
     if (!exist) {
         return res.status(404).json({ massage: `Data dengan id = ${id} tidak ditemukan` });

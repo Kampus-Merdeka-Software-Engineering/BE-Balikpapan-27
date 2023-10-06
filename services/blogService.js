@@ -1,50 +1,96 @@
-const { pool } = require('../config/database');
+const { prisma } = require('../config/prisma')
 
 const getAllBlog = async () => {
-    const connection = await pool.getConnection();
     try {
-        const [blog] = await connection.query('SELECT * FROM blog');
+        const blog = await prisma.blog.findMany({
+            select: {
+                id: true,
+                foto: true,
+                judul: true,
+                penulis: true,
+                tanggal_terbit: true,
+                isi_blog: true
+            }
+        })
         return blog
 
     } catch (error) {
         console.error(error)
         return error
-
-    } finally {
-        connection.release()
-    }   
-}
-
-const getBlogById = async (id) => {
-    const connection = await pool.getConnection();
-    try {
-        const [blog] = await connection.query('SELECT * FROM blog WHERE id = ?', [id]);
-        return blog
-
-    } catch (error) {
-        console.error(error)
-        return error
-
-    } finally {
-        connection.release()
-    }   
-}
-
-const createBlog = async (blog) => {
-    const connection = await pool.getConnection();
-    try {
-        //tabel blog belum fix
-        const createdBlog = await connection.query('INSERT INTO blog (nama, nim, username, email, password, dob) VALUES (?, ?, ?, ?, ?, ?)', [mahasiswa.nama, mahasiswa.nim, mahasiswa.username, mahasiswa.email, mahasiswa.password, mahasiswa.dob]);
-
-        return createdBlog
-        //atau return createdMahasiswa.id biar gak semua info dari mahasiswa direturn (utamanya password)
-    } catch (error) {
-        console.error(error)
-        return error
-
-    } finally {
-        connection.release()
     }
 }
 
-module.exports = { getAllBlog, getBlogById, createBlog }
+const getBlogById = async (id) => {
+    try {
+        const blog = await prisma.blog.findMany({
+            where: {
+                id: Number(id)
+            }
+        })
+        return blog
+
+    } catch (error) {
+        console.error(error)
+        return error
+    }
+}
+
+const createBlog = async (body) => {
+    try {
+        const { foto, judul, penulis, tanggal_terbit, isi_blog } = body;
+        const createdBlog = await prisma.blog.create({
+            data: {
+                foto,
+                judul,
+                penulis,
+                tanggal_terbit,
+                isi_blog
+            }
+        })
+        return createdBlog
+
+    } catch (error) {
+        console.error(error)
+        return error
+    }
+}
+
+const updateBlog = async (id, body) => {
+    try {
+        const { foto, judul, penulis, tanggal_terbit, isi_blog } = body;
+        const updatedBlog = await prisma.blog.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                foto: foto,
+                judul: judul,
+                penulis: penulis,
+                tanggal_terbit: tanggal_terbit,
+                isi_blog: isi_blog
+            }
+        })
+        return updatedBlog
+
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+const deleteBlog = async (id) => {
+    try {
+        const deletedBlog = await prisma.blog.delete({
+            where: {
+                id: Number(id)
+            }
+        })
+        return deletedBlog
+
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+module.exports = { getAllBlog, getBlogById, createBlog, updateBlog, deleteBlog }

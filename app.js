@@ -11,7 +11,7 @@ const express = require('express');
 //import Routes
 const { mahasiswaRoutes } = require('./routes/mahasiswaRoutes');
 const { appointmentRoutes } = require('./routes/appointmentRoutes');
-// const { blogRoutes } = require('./routes/blogRoutes');
+const { blogRoutes } = require('./routes/blogRoutes');
 // const { doctorRoutes } = require('./routes/doctorRoutes');
 // const { teamRoutes } = require('./routes/teamRoutes');
 
@@ -24,7 +24,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use("/mahasiswa", mahasiswaRoutes)
 app.use("/appointment", appointmentRoutes)
-// app.use('/blog', blogRoutes)
+app.use('/blog', blogRoutes)
 // app.use('/doctor', doctorRoutes)
 // app.use('/team', teamRoutes)
 
