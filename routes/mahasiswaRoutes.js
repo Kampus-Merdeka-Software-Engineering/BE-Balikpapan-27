@@ -5,23 +5,10 @@ const { prisma } = require('../config/prisma');
 const mahasiswaRoutes = express.Router();
 
 mahasiswaRoutes.get('/', mahasiswaController.getAllMahasiswa)
-//mahasiswaRoutes.get('/:id', mahasiswaController.getMahasiswaById)
-mahasiswaRoutes.post('/', async (req, res, next) => {
-    const { nama, nim, jurusan } = req.body;
-
-    const result = await prisma.mahasiswa.create({
-        data: {
-            nama: nama,
-            nim: nim,
-            jurusan: jurusan
-        }
-    })
-    res.json({
-        data: result,
-        massage: 'user created'
-    })
-})
-mahasiswaRoutes.patch('/:id', mahasiswaController.updateMahasiswa)
+mahasiswaRoutes.get('/:id', mahasiswaController.getMahasiswaById)
+mahasiswaRoutes.post('/create', mahasiswaController.createMahasiswa)
+mahasiswaRoutes.put('/update/:id', mahasiswaController.updateMahasiswa)
+mahasiswaRoutes.delete('/delete/:id', mahasiswaController.deleteMahasiswa)
 
 
 module.exports = { mahasiswaRoutes }

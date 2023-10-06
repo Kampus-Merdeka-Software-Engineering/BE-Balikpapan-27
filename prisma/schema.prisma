@@ -13,10 +13,9 @@ datasource db {
 model Mahasiswa {
   id        Int     @id @default(autoincrement())
   nama      String
-  nim       String  @unique
+  nim       String
   jurusan   String
   createAt  DateTime  @default(now())
-  updateAt  DateTime  @updatedAt
 }
 
 model Campus {
@@ -30,7 +29,7 @@ model Campus {
 
 model Appointment {
   id        Int     @id @default(autoincrement())
-
+  
   createAt  DateTime  @default(now())
   updateAt  DateTime  @updatedAt
 }

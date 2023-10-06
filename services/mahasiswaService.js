@@ -11,9 +11,7 @@ const getAllMahasiswa = async () => {
                 id: true,
                 nama: true,
                 nim: true,
-                jurusan: true,
-                createAt: false,
-                updateAt: false
+                jurusan: true
             }
         })
         return mahasiswa
@@ -24,28 +22,30 @@ const getAllMahasiswa = async () => {
     }
 }
 
-// const getMahasiswaById = async (userId) => {
-//     try {
-//         const mahasiswa = await prisma.mahasiswa.findUnique({
-//             where: {id:Number(userId)}
-            
-//         })
-//         return mahasiswa
-
-//     } catch (error) {
-//         console.error(error)
-//         return error
-//     } 
-// }
-
-const createMahasiswa = async (reqBody) => {    
+const getMahasiswaById = async (id) => {
     try {
-        const {nama, nim, jurusan} = reqBody;
+        const mahasiswa = await prisma.mahasiswa.findMany({
+            where: {
+                id:Number(id)
+            }
+            
+        })
+        return mahasiswa
+
+    } catch (error) {
+        console.error(error)
+        return error
+    } 
+}
+
+const createMahasiswa = async (body) => {    
+    try {
+        const {nama, nim, jurusan} = body;
         const createdMahasiswa = await prisma.mahasiswa.create({
             data: {
-                nama: nama,
-                nim: nim,
-                jurusan: jurusan
+                nama,
+                nim,
+                jurusan
             }
         })
         return createdMahasiswa
@@ -55,13 +55,18 @@ const createMahasiswa = async (reqBody) => {
         return error}
 }
 
-const updateMahasiswa = async (id, reqBody) => {
+const updateMahasiswa = async (id, body) => {
     try {
-        const {nama, nim, jurusan} = reqBody
+        const { nama, nim, jurusan } = body
         const updatedMahasiswa = await prisma.mahasiswa.update({
-            nama: nama,
-            nim: nim,
-            jurusan: jurusan
+            where: {
+                id: Number(id)
+            },
+            data: {
+                nama: nama,
+                nim: nim,
+                jurusan: jurusan
+            }
         })
         return updatedMahasiswa
 
@@ -71,4 +76,19 @@ const updateMahasiswa = async (id, reqBody) => {
     }
 }
 
-module.exports = { getAllMahasiswa, createMahasiswa, updateMahasiswa }
+const deleteMahasiswa = async (id) => {
+    try {
+        const deletedMahasiswa = await prisma.mahasiswa.delete({
+            where: {
+                id: Number(id)
+            }
+        })
+        return deletedMahasiswa
+
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+module.exports = { getAllMahasiswa, getMahasiswaById, createMahasiswa, updateMahasiswa, deleteMahasiswa }

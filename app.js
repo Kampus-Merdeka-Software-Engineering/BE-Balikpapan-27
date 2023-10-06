@@ -22,7 +22,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use("/", mahasiswaRoutes)
+app.use("/mahasiswa", mahasiswaRoutes)
+// app.use('/appointment', appointmentRoutes)
+// app.use('/blog', blogRoutes)
+// app.use('/doctor', doctorRoutes)
+// app.use('/team', teamRoutes)
 
 //listen port
 app.listen(PORT, () => {

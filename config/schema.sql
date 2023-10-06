@@ -13,31 +13,29 @@ CREATE TABLE IF NOT EXISTS doctor (
 CREATE TABLE IF NOT EXISTS appointment (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nama VARCHAR(225) NOT NULL,
-    email VARCHAR(225) NOT NULL,
+    -- email VARCHAR(225) NOT NULL,
     telp VARCHAR(225) NOT NULL,
     tanggal DATE,
-    dokter VARCHAR(225) NOT NULL, -- gimana klo dihubungkan ke table dokter?
+    dokter VARCHAR(225) NOT NULL,
     pesan TEXT
 );
 
 CREATE TABLE IF NOT EXISTS blog (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    foto VARCHAR(225),
     judul VARCHAR(225) NOT NULL,
     penulis VARCHAR(225) NOT NULL,
     tanggal_terbit DATE,
-    isi_blog TEXT NOT NULL,
-    foto VARCHAR(225)
+    isi_blog TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS team (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nama VARCHAR(225) NOT NULL,
     divisi VARCHAR(225) NOT NULL,
-    facebook VARCHAR(225),
-    twitter VARCHAR(225),
+    linkedin VARCHAR(225),
     instagram VARCHAR(225),
     whatsapp VARCHAR(225),
-    linkedin VARCHAR(225),
     foto VARCHAR(225) NOT NULL,
     logo_universitas VARCHAR(225) NOT NULL,
 );
