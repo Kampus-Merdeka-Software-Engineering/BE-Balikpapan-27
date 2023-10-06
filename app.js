@@ -12,7 +12,7 @@ const express = require('express');
 const { mahasiswaRoutes } = require('./routes/mahasiswaRoutes');
 const { appointmentRoutes } = require('./routes/appointmentRoutes');
 const { blogRoutes } = require('./routes/blogRoutes');
-// const { doctorRoutes } = require('./routes/doctorRoutes');
+const { doctorRoutes } = require('./routes/doctorRoutes');
 // const { teamRoutes } = require('./routes/teamRoutes');
 
 const app = express();
@@ -22,10 +22,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use("/mahasiswa", mahasiswaRoutes)
-app.use("/appointment", appointmentRoutes)
+app.use('/mahasiswa', mahasiswaRoutes)
+app.use('/appointment', appointmentRoutes)
 app.use('/blog', blogRoutes)
-// app.use('/doctor', doctorRoutes)
+app.use('/doctor', doctorRoutes)
 // app.use('/team', teamRoutes)
 
 //listen port

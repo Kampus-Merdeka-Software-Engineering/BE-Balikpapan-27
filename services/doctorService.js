@@ -1,50 +1,93 @@
-const { pool } = require('../config/database');
+const { prisma } = require('../config/prisma')
 
 const getAllDoctor = async () => {
-    const connection = await pool.getConnection();
     try {
-        const [doctor] = await connection.query('SELECT * FROM doctor');
+        const doctor = await prisma.doctor.findMany({
+            select: {
+                id: true,
+                nama: true,
+                spesialis: true,
+                jenis_kelamin: true,
+                foto: true
+            }
+        })
         return doctor
 
     } catch (error) {
         console.error(error)
         return error
-
-    } finally {
-        connection.release()
-    }   
-}
-
-const getDoctorById = async (id) => {
-    const connection = await pool.getConnection();
-    try {
-        const [doctor] = await connection.query('SELECT * FROM doctor WHERE id = ?', [id]);
-        return doctor
-
-    } catch (error) {
-        console.error(error)
-        return error
-
-    } finally {
-        connection.release()
-    }   
-}
-
-const createDoctor = async (doctor) => {
-    const connection = await pool.getConnection();
-    try {
-        //tabel blog belum fix
-        const createdDoctor = await connection.query('INSERT INTO doctor (nama, nim, username, email, password, dob) VALUES (?, ?, ?, ?, ?, ?)', [mahasiswa.nama, mahasiswa.nim, mahasiswa.username, mahasiswa.email, mahasiswa.password, mahasiswa.dob]);
-
-        return createdDoctor
-        //atau return createdMahasiswa.id biar gak semua info dari mahasiswa direturn (utamanya password)
-    } catch (error) {
-        console.error(error)
-        return error
-
-    } finally {
-        connection.release()
     }
 }
 
-module.exports = { getAllDoctor, getDoctorById, createDoctor }
+const getDoctorById = async (id) => {
+    try {
+        const doctor = await prisma.doctor.findMany({
+            where: {
+                id: Number(id)
+            }
+        })
+        return doctor
+
+    } catch (error) {
+        console.error(error)
+        return error
+    } 
+}
+
+const createDoctor = async (body) => {
+    try {
+        const { nama, spesialis, jenis_kelamin, foto } = body;
+        const createdDoctor = await prisma.doctor.create({
+            data: {
+                nama,
+                spesialis,
+                jenis_kelamin,
+                foto
+            }
+        })
+        return createdDoctor
+
+    } catch (error) {
+        console.error(error)
+        return error
+    }
+}
+
+const updateDoctor = async (id, body) => {
+    try {
+        const { nama, spesialis, jenis_kelamin, foto } = body;
+        const updatedDoctor = await prisma.doctor.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                nama: nama,
+                spesialis: spesialis,
+                jenis_kelamin: jenis_kelamin,
+                foto: foto
+            }
+        })
+        return updatedDoctor
+
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+const deleteDoctor = async (id) => {
+    try {
+        const deletedDoctor = await prisma.doctor.delete({
+            where: {
+                id: Number(id)
+            }
+        })
+        return deletedDoctor
+
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+module.exports = { getAllDoctor, getDoctorById, createDoctor, updateDoctor, deleteDoctor }
