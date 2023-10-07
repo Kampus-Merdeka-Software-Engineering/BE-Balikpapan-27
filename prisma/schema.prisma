@@ -34,7 +34,7 @@ model Blog {
   foto            String
   judul           String
   penulis         String
-  tanggal_terbit  DateTime
+  tanggal_terbit  String
   isi_blog        String    @db.Text
   createAt        DateTime  @default(now())
   updateAt        DateTime  @updatedAt
