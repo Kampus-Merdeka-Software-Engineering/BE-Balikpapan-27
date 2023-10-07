@@ -15,7 +15,7 @@ const existingData = async (id) => {
     }
 } 
 
-const getAllAppointment = async (req,res) => {
+const getAllAppointment = async (req, res) => {
     const appointment = await appointmentService.getAllAppointment()
     res.status(200).json({
         massage: "Sukses mengambil data",
@@ -38,7 +38,7 @@ const getAppointmentById = async (req, res) => {
     }
 }
 
-const createAppointment = async (req,res) => {
+const createAppointment = async (req, res) => {
     const createdAppointment = await appointmentService.createAppointment(req.body)
     res.status(201).json({
         massage: "Sukses menambahkan data",

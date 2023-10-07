@@ -27,6 +27,16 @@ const getTeamById = async (id) => {
         const team = await prisma.team.findMany({
             where: {
                 id: Number(id)
+            },
+            select: {
+                id: true,
+                nama: true,
+                divisi: true,
+                linkedin: true,
+                instagram: true,
+                whatsapp: true,
+                foto: true,
+                logo_universitas: true 
             }
         })
         return team

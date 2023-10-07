@@ -24,6 +24,13 @@ const getDoctorById = async (id) => {
         const doctor = await prisma.doctor.findMany({
             where: {
                 id: Number(id)
+            },
+            select: {
+                id: true,
+                nama: true,
+                spesialis: true,
+                jenis_kelamin: true,
+                foto: true
             }
         })
         return doctor

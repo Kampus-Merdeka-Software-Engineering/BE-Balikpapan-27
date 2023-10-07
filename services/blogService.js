@@ -25,6 +25,14 @@ const getBlogById = async (id) => {
         const blog = await prisma.blog.findMany({
             where: {
                 id: Number(id)
+            },
+            select: {
+                id: true,
+                foto: true,
+                judul: true,
+                penulis: true,
+                tanggal_terbit: true,
+                isi_blog: true
             }
         })
         return blog

@@ -25,7 +25,16 @@ const getAppointmentById = async (id) => {
         const appointment = await prisma.appointment.findMany({
             where: {
                 id: Number(id)
+            },
+            select: {
+                id: true,
+                nama: true,   
+                telp: true,   
+                tanggal: true,
+                dokter: true,
+                pesan: true
             }
+
         })
         return appointment
 
