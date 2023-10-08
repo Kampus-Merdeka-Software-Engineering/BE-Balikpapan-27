@@ -1,18 +1,15 @@
-//file entrypoint, tempat server API jalan
-
 require('dotenv').config();
 
-const cors = require('cors'); //biar bisa sharing data antar endpoint, atau singkatnya biar datanya bisa nyambung ke FE
+const cors = require('cors');
 const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 //import Routes
 const { appointmentRoutes } = require('./routes/appointmentRoutes');
 const { blogRoutes } = require('./routes/blogRoutes');
 const { doctorRoutes } = require('./routes/doctorRoutes');
 const { teamRoutes } = require('./routes/teamRoutes');
-
-const app = express();
-const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
