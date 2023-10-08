@@ -6,7 +6,6 @@ const cors = require('cors'); //biar bisa sharing data antar endpoint, atau sing
 const express = require('express');
 
 //import Routes
-const { mahasiswaRoutes } = require('./routes/mahasiswaRoutes');
 const { appointmentRoutes } = require('./routes/appointmentRoutes');
 const { blogRoutes } = require('./routes/blogRoutes');
 const { doctorRoutes } = require('./routes/doctorRoutes');
@@ -19,7 +18,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use('/mahasiswa', mahasiswaRoutes)
 app.use('/appointment', appointmentRoutes)
 app.use('/blog', blogRoutes)
 app.use('/doctor', doctorRoutes)

@@ -10,15 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Mahasiswa {
-  id        Int     @id @default(autoincrement())
-  nama      String
-  nim       String
-  jurusan   String
-  createAt  DateTime  @default(now())
-  updateAt  DateTime  @updatedAt
-}
-
 model Appointment {
   id        Int       @id @default(autoincrement())
   nama      String    
