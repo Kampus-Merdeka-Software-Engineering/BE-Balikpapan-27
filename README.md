@@ -8,10 +8,10 @@ Welcome to the server-side of [**Moms Health Website**](https://kampus-merdeka-s
 
 ## Technologies Use
 
-- `Express JS` Front-end technologies for building the user interface and enhancing user experience.
-- `Prisma` Front-end technologies for building the user interface and enhancing user experience.
-- `MySQL:` Database for storing and managing data.
-- `Railway:` A platform for deploying and managing databases and backend services easily.
+- `Express JS`: Node JS server-side framework to build web applications and APIs easily and quickly.
+- `Prisma`: Modern ORM (Object-Relational Mapping) to simplify interaction with the database.
+- `MySQL`: Database for storing and managing data.
+- `Railway`:  A platform for deploying and managing databases and backend services easily.
 
 ## APIs Endpoints We Provide
 
@@ -60,3 +60,4 @@ https://be-balikpapan-27-production.up.railway.app/
 | **PUT** | `/team/update:id` | Update team by id |
 | **DELETE** | `/team/delete:id` | Delete team by id |
 
+Developed with ❤️ by the BackEnd team - Group 27 - Balikpapan Section
