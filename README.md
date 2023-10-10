@@ -15,7 +15,7 @@ Welcome to the server-side of [**Moms Health Website**](https://kampus-merdeka-s
 BASE_URL https://be-balikpapan-27-production.up.railway.app/
 ```
 
-### Appointment Routes
+### Appointment Routes `/appointment`
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
@@ -25,6 +25,32 @@ BASE_URL https://be-balikpapan-27-production.up.railway.app/
 | **PUT** | `/appointment/update:id` | Update appointment by id |
 | **DELETE** | `/appointment/delete:id` | Delete appointment by id |
 
-### Blog Routes
-### Doctor Routes
-### Team Routes
+### Blog Routes `/blog`
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| **GET** | `/blog` | Get all blog data |
+| **GET** | `/blog/:id` | Get data blog data by id |
+| **POST** | `/blog/create` | Create an blog |
+| **PUT** | `/blog/update:id` | Update blog by id |
+| **DELETE** | `/blog/delete:id` | Delete blog by id |
+
+### Doctor Routes `/doctor`
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| **GET** | `/doctor` | Get all doctor data |
+| **GET** | `/doctor/:id` | Get data doctor data by id |
+| **POST** | `/doctor/create` | Create an doctor |
+| **PUT** | `/doctor/update:id` | Update doctor by id |
+| **DELETE** | `/doctor/delete:id` | Delete doctor by id |
+
+### Team Routes `/team`
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| **GET** | `/team` | Get all team data |
+| **GET** | `/team/:id` | Get data team data by id |
+| **POST** | `/team/create` | Create an team |
+| **PUT** | `/team/update:id` | Update team by id |
+| **DELETE** | `/team/delete:id` | Delete team by id |
