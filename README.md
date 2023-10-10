@@ -6,13 +6,17 @@
 
 Welcome to the server-side of [**Moms Health Website**](https://kampus-merdeka-software-engineering.github.io/FE-Balikpapan-27/)! 
 
-## Tech Use
+## Technologies Use
 
+- `Express JS` Front-end technologies for building the user interface and enhancing user experience.
+- `Prisma` Front-end technologies for building the user interface and enhancing user experience.
+- `MySQL:` Database for storing and managing data.
+- `Railway:` A platform for deploying and managing databases and backend services easily.
 
 ## APIs Endpoints We Provide
 
 ```
-BASE_URL https://be-balikpapan-27-production.up.railway.app/
+`BASE_URL` https://be-balikpapan-27-production.up.railway.app/
 ```
 
 ### Appointment Routes `/appointment`
@@ -54,3 +58,4 @@ BASE_URL https://be-balikpapan-27-production.up.railway.app/
 | **POST** | `/team/create` | Create an team |
 | **PUT** | `/team/update:id` | Update team by id |
 | **DELETE** | `/team/delete:id` | Delete team by id |
+
